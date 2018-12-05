@@ -56,7 +56,7 @@ export class EngineerListComponent implements OnInit {
 
     this.role = localStorage.getItem("role");
     debugger
-    this.getListofEngineers();
+    
    
   }
 
@@ -113,6 +113,7 @@ onSortChange(event) {
 
   //TO GET THE LIST OF ENGINEERS 
   getListofEngineers(){
+    debugger
     this._engineerService.getAllEngineerSpecific().subscribe((result: any)=> {
      this.listOfEngineers = result.engineers.filter(e => e.isDeleted === false);
      this.listOfEngineers.forEach(emp => {  
@@ -137,6 +138,14 @@ onSortChange(event) {
     debugger
     this.currentURL = cURL.toString().split('/')[2];
     debugger
+    if(this.currentURL === 'list' || this.currentURL === 'engineer-list') {
+      this._engineerService.getAllEngineers().subscribe((result: any) => {
+        this.listOfEngineers = result.engineers;
+      })
+    }
+    else {
+      this.getListofEngineers();
+    }
   }
 
 
