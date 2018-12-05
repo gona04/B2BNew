@@ -18,4 +18,8 @@ export class JobsService {
   getJobs(id: string) {
     return this.http.get(this.BASE_URL + 'getAllJobs/' + id);
   }
+
+  editJobs(job: Jobs) {
+    return this.http.put(this.BASE_URL + 'editJob/' + job._id, job);
+  }
 }

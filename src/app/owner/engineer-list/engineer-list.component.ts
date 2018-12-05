@@ -17,22 +17,18 @@ import { AddEngineersComponent } from '../add-engineer/add-engineers.component';
 })
 export class EngineerListComponent implements OnInit {
 
- 
- 
+  //FOR SMART TABLE
   selectedEngineer: Engineer;
-
   displayDialog: boolean;
-
   sortOptions: SelectItem[];
-
   sortKey: string;
-
   sortField: string;
-
   sortOrder: number;
-
+  
+  //FOR DATA
   listOfEngineers: Engineer[];
   technoList: Technology[] = [];
+
   constructor(private _engineerService: EngineerService, private dialog: MatDialog, private _techService: TechnologyService, private _ownerService: OwnerService) { }
 
   ngOnInit() {
@@ -46,13 +42,9 @@ export class EngineerListComponent implements OnInit {
   }
 
  
+  
 
-  selectCar(event: Event, engineer: Engineer ) {
-    this.selectedEngineer = engineer;
-    this.displayDialog = true;
-    event.preventDefault();
-}
-
+//FOR SORTING TABLE DATA
 onSortChange(event) {
     let value = event.value;
 
@@ -66,9 +58,7 @@ onSortChange(event) {
     }
 }
 
-onDialogHide() {
-    this.selectedEngineer = null;
-}
+
 
   //TO GET Engineer BY ID
   engineerDetails(id: string) {
@@ -81,20 +71,20 @@ onDialogHide() {
   }
 
   editEngineer(id: string){
-
-const userDetails = this.listOfEngineers.find(e => e._id === id );
-const d = this.dialog.open(AddEngineersComponent, {
-  // width:'600px',
-  // height: '1000px',
-  panelClass: 'custom-dialog-container',
-  data: userDetails
+    const userDetails = this.listOfEngineers.find(e => e._id === id );
+    const d = this.dialog.open(AddEngineersComponent, {
+      
+      panelClass: 'custom-dialog-container',
+      data: userDetails
 })
-const e = new Engineer();
-this._engineerService.editEngineer(id, e).subscribe(result => {
 
-})
+//   const e = new Engineer();
+//   this._engineerService.editEngineer(id, e).subscribe(result => {
+
+// })
   }
 
+  //FOR TETMPORARILY DELETING AN ENGINEER
   deleteEngineer(id: string) {
     alert('id ' + id);
     if(confirm('Are you sure you want to delete this engineer ? ')){
@@ -105,6 +95,7 @@ this._engineerService.editEngineer(id, e).subscribe(result => {
     
   }
 
+  //TO GET THE LIST OF ENGINEERS 
   getListofEngineers(){
     this._engineerService.getAllEngineerSpecific().subscribe((result: any)=> {
      this.listOfEngineers = result.engineers.filter(e => e.isDeleted === false);
@@ -116,6 +107,7 @@ this._engineerService.editEngineer(id, e).subscribe(result => {
     })
   }
 
+  //TO GET ALL TECHNOLOGIES 
   getAllTechnologies(id: string) {
     this._techService.getAlltechnologies(id).subscribe((result:any) => {
       let empD = this.listOfEngineers.find(emp => emp._id === id);

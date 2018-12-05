@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+
 
 import { SelectItem } from 'primeng/components/common/selectitem';
 import { Engineer } from 'src/app/shared/engineer/engineer.model';
@@ -7,7 +7,7 @@ import { EngineerService } from 'src/app/shared/engineer/engineer.service';
 import { TechnologyService } from 'src/app/shared/engineer/technology/technology.service';
 import { EngineerDetailsComponent } from '../engineer-details/engineer-details.component';
 import { EmployeeService } from 'src/app/shared/owner/employee/employee.service';
-import { Employee } from 'src/app/shared/owner/employee/employee.class';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-engineer-list-general',
@@ -149,7 +149,6 @@ export class EngineerListGeneralComponent implements OnInit {
     let spEng: Engineer = this.listOfEngineers.find(eng => eng._id === id);
     spEng.hiredBy = null;
     spEng.hiredByRole = null;
-    // spEng.showUnhired = false;
     
     this._engineerService.unhire(spEng._id, spEng).subscribe(result => {
 

@@ -30,12 +30,15 @@ export class EngineerDetailsComponent implements OnInit {
       this.jobs.forEach(j => {
         if(j.till === "Till Date") {
           this.designation = j.desgnation;
+          
         }
+        debugger
       })
     })
     this._techService.getAlltechnologies(this.engineer._id).subscribe((result:any) => {
       
       this.technologies = result.technologies;
+      debugger
     })
   }
 

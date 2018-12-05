@@ -33,6 +33,7 @@ export class AddEngineersComponent implements OnInit {
 
   //JOBS
   jobs: Jobs[] = [];
+  listOfJobs: Jobs[] = [];
   cols:any[] = [];
   constructor(private _engineerService: EngineerService, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
@@ -48,8 +49,6 @@ export class AddEngineersComponent implements OnInit {
 
         this.engineer = this.data
         this.button = "Edit"
-    
-        
         this.getAllTechnologies();
         this.getAllJobs();
     }
@@ -76,13 +75,9 @@ export class AddEngineersComponent implements OnInit {
       this.router.navigate(['/']);
     })
   }
-
+      //EDIT COMPLETE 
       else {
-        
- 
-        
         if(this.engineer.technologiesKnown.length > 0) {
-          
           this.engineer.technologiesKnown = [];
           this.techToPrint.forEach(t => {
             this.engineer.technologiesKnown.push(t.name);
@@ -118,9 +113,6 @@ export class AddEngineersComponent implements OnInit {
       })
      
       d.afterClosed().subscribe((result:any) => {
-
-        
-       
          this.getAllTechnologies();
       })
    }
@@ -172,8 +164,38 @@ export class AddEngineersComponent implements OnInit {
 
    getAllJobs() {
     this._jobService.getJobs(this.engineer._id).subscribe((result:any) => {
-      this.jobs = result.job;
+     this.jobs = result.job;
+     debugger
     })
+   }
+
+   editJobs(id: string) {
+   let job = this.jobs.find(e => e._id === id);
+    let d = this.dialog.open(AddJobsComponent, {
+      panelClass: 'custom-dialog-container',
+      data: {
+        engineerId: this.engineer._id,
+        job: job
+      }
+    })
+
+    d.afterClosed().subscribe(result => {
+
+      this.getAllJobs();
+    })
+   }
+
+   deleteJob(id: string) {
+     let job = this.jobs.find(e => e._id === id);
+     job.isDeleted = true;
+     job.deletedOn = new Date();
+     const now = new Date();
+     job.willBeDeleted = new Date(now.setDate( now.getDate() + 6));
+
+     this._jobService.editJobs(job).subscribe((result:any) => {
+       console.log(job.willBeDeleted.getDate() + '      ' + job.deletedOn.getDate())
+       alert(result.message)
+     })
    }
   }
 

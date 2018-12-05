@@ -9,7 +9,10 @@ const jobSchema = mongoose.Schema({
     projectLinks:{type:[String]},
     otherWorkLinks:{type: [String]},
     otherUSB:{type:String},
-    employeeId:{type: mongoose.SchemaTypes.ObjectId, ref: 'employee'}
+    engineerId:{type: mongoose.SchemaTypes.ObjectId, ref: 'employee'},
+    isDeleted: {type: Boolean, default: 'false'},
+    deletedOn: {type: Date},
+    willBeDeleted: {type: Date}
 })
 
 module.exports = mongoose.model('job', jobSchema);

@@ -88,9 +88,9 @@
                 <tr *ngFor="let tech of techToPrint" class="table-secondary">
                   <td> {{tech.name}} </td>
                   <td> {{tech.proficiency}} </td>
-                  <td scope="row"> <button mat-icon-button style="color: #023c66" (click)="editTechnology(technology._id)" > <mat-icon>edit</mat-icon> </button>  
+                  <td scope="row"> <button mat-icon-button style="color: #023c66" (click)="editJobs(job._id)" > <mat-icon>edit</mat-icon> </button>  
                     <span> 
-                        <button mat-icon-button style="color: darkred" (click)="deleteTechnology(technology._id)" > <mat-icon> delete </mat-icon> </button> 
+                        <button mat-icon-button style="color: darkred" (click)="deleteJob(job._id)" > <mat-icon> delete </mat-icon> </button> 
                     </span>  </td>
                 </tr>
               </tbody>
@@ -106,26 +106,32 @@
                         <div class="col">
                           <label>Jobs:    </label>
                             <div *ngIf="jobs">
-                              <div *ngFor="let job of jobs" class="table-secondary">
-                                <span style="font-weight: bold"> {{job.companyName}}: </span>
+                              <div *ngFor="let job of jobs" class="table-secondary" style="padding-top: 20px; padding-bottom: 45px">
+                                <h5 style="font-weight: bold;"> {{job.companyName}}: </h5>
+                                    <!-- <br> -->
+                                    <small>  {{job.startedOn | date:'mediumDate'}} </small>
+                                    <strong> - </strong>
+                                    <small *ngIf="job.till === 'Till Date' ; else doThis "> {{job.till }} </small>
+                                    <ng-template #doThis> {{job.till | date: 'mediumDate'}} </ng-template>
                                     <br>
-                                    <small> {{job.startedOn | date:'mediumDate'}} </small>
+                                    <small> <strong> {{job.desgnation }} </strong>  </small>
                                     <br>
-                                    <small> {{job.till }} </small>
+                                    <small> <strong>Duties:</strong>  {{job.currentResponsibilites}}  </small>
                                     <br>
-                                    <small> {{job.desgnation }} </small>
+                                    <small [hidden]="!job.projectLinks"> <strong>Links:</strong> {{job.projectLinks}} </small>
                                     <br>
-                                    <small> {{job.currentResponsibilites}}  </small>
+                                    <small [hidden]="!job.otherWorkLinks"> {{job.otherWorkLinks}} </small>
                                     <br>
-                                    <small> {{job.projectLinks}} </small>
+                                    <small *ngIf="job.otherUSB"> <strong>USBS</strong> {{job.otherUSB}} </small>
                                     <br>
-                                    <small> {{job.otherWorkLinks}} </small>
-                                    <br>
-                                    <small> {{job.otherUSB}} </small>
-                                    
+                               
+                                    <td style="float:right"> <button mat-icon-button style="color: #023c66" (click)="editJobs(job._id)" > <mat-icon>edit</mat-icon> </button>  
+                                      <span> 
+                                          <button mat-icon-button style="color: darkred" (click)="deleteJob(job._id)" > <mat-icon> delete </mat-icon> </button> 
+                                      </span>  </td>
                                </div>
                              </div>
-                            <a type="button"  (click)="addJobs()" style="color:darkblue; font-size: 14px; flex-flow: row">  +add a job</a>  
+                            <a type="button"  (click)="addJobs()" style="color:darkblue; font-size: 14px; flex-flow: row; margin-top: 10px">  +add a job</a>  
                          </div>
                     </div>
 
