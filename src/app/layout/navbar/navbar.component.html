@@ -1,0 +1,67 @@
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark unique-color">
+    <mdb-navbar-brand>
+        <a class="navbar-brand" href="#" mat-button-raised [hidden]="role === 'EMPLOYEE'" >
+            <img src="../assets/images/sample_logo4.png" height="30" alt="">
+        </a>
+        <a class="navbar-brand" href="#" mat-button-raised *ngIf="role === 'EMPLOYEE'" [routerLink]="['owner/list']" >
+          <img src="../assets/images/sample_logo4.png" height="30" alt="">
+      </a>
+    </mdb-navbar-brand>
+    <button class="navbar-toggler" [routerLink]=page type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item  float-left" routerLinkActive="active">
+          <a mat-button class="nav-link waves-effect waves-light" [routerLink]="['/howItWorks']">
+             How It Works 
+          </a>
+        </li>
+
+         <!-- Dropdown -->
+         <!-- {{role}} -->
+         <button mat-button *ngIf="role === 'EMPLOYEE'" [routerLink]="['/owner/list']" style="color: white" [hidden]="!isAuthenticated">Engineer</button>
+         <button mat-button *ngIf="role === 'OWNER'" [matMenuTriggerFor]="menu" [routerLink]="['/owner/list']" style="color: white" [hidden]="!isAuthenticated">Employees</button>
+         <mat-menu #menu="matMenu">
+           <button mat-menu-item [routerLink]="['/owner/splist']">Engineers</button>
+           <button mat-menu-item [routerLink]="['/owner/listEmployee']">Employees</button>
+          </mat-menu>
+         <button mat-button *ngIf="role === 'ADMIN'" [routerLink]="['/admin/engineer-list']" style="color: white" [hidden]="!isAuthenticated">Engineer</button>
+        <li class="nav-item float-left" routerLinkActive="active" [hidden]="isAuthenticated"> 
+            <a mat-button class="nav-link waves-effect waves-light"  [routerLink]="['/auth/signup']">
+               Signup
+            </a>
+          </li>
+        <li class="nav-item float-right" routerLinkActive="active" [hidden]="isAuthenticated">
+          <a mat-button class="nav-link waves-effect waves-light"  [routerLink]="['auth/login']">
+            <!-- <i class="fa fa-gear"></i>  -->
+            Login</a>
+        </li>
+        <li class="nav-item " routerLinkActive="active" *ngIf="isAuthenticated">
+          <button mat-button class="nav-link waves-effect waves-light col-12"  (click)="logout()">
+            <!-- <i class="fa fa-gear"></i> -->
+             Logout </button>
+        </li>
+        <li class="nav-item float-right" routerLinkActive="active" ngDoCheck *ngIf="isAuthenticated && (role === 'ADMIN')">
+            <button mat-button class="nav-link waves-effect waves-light" [matMenuTriggerFor]="menu" (click)="notify()">
+              <i class="fa fa-bell" [matBadge]=numberOfUnseen matBadgePosition="before" matBadgeColor="primary"  ></i> </button>
+              <mat-menu #menu="matMenu" >
+           <button mat-menu-item *ngFor="let company of addedCompanies"> {{company}} is added </button>
+           <!-- <button mat-menu-item [routerLink]="['/owner/deletedEngineers']">List Of Deleted Engineers</button> -->
+         </mat-menu>
+          </li>
+<!-- </mat-menu> -->
+        <!-- <li class="nav-item dropdown" dropdown>
+          
+          <a dropdownToggle mdbWavesEffect class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user"></i> Profile </a>
+          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4" mdbWavesEffect>
+            <a class="dropdown-item waves-effect waves-light"  mdbWavesEffect href="javascript:;;">My account</a>
+            <a class="dropdown-item waves-effect waves-light"  mdbWavesEffect href="javascript:;;">Log out</a>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+    <!-- {{role}} -->
+  </nav>

@@ -1,0 +1,81 @@
+
+
+  <!--Form with header-->
+  <mdb-card>
+
+      <!--Header-->
+      <div class="header pt-3" style="background-color: lightblue">
+  
+        <div class="row d-flex justify-content-start">
+          <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Skills To Add</h3>
+        </div>
+  
+      </div>
+      <!--Header-->
+  
+      <mdb-card-body class="mx-4 mt-4">
+  
+        <!--Body-->
+        <form #reasonToReject="ngForm" (ngSubmit)="onSubmit(reasonToReject)">
+  
+          <mat-form-field>
+            <input type="text" 
+            matInput
+            placeholder="Technology Name"
+            [ngModel]="technology?.name"
+            (ngModelChange)="technology.name = $event"
+            name="technologyName"
+            #technologyName="ngModel" required>
+
+            <mat-error *ngIf="technologyName?.touched && technologyName.errors?.required" class="help-block font-weight-bold" style=" font-size: 12px; color: maroon">
+              Please enter a technology name
+                <!-- have to work on that  -->
+              <!-- (only lowercase allowed) -->
+          </mat-error>
+          </mat-form-field>
+       
+          <br>
+
+          
+          <br>
+
+      <div class="text-center mb-4" style="margin-top: 20px">
+        <button type="button" 
+        mdbBtn 
+        name="bprofi"
+        style="background-color:#3F729B"  
+        block="true" 
+        class="z-depth-2" 
+        value="Beginner"  
+        (click)="onClose('Beginner')">
+        Beginner
+      </button>
+        <button type="button" 
+        mdbBtn  
+        style="background-color:#3F729B"  
+        name="interProfi"
+        block="true" 
+        class="z-depth-2" 
+        value="Intermediate"     
+        (click)="onClose('inetermediate')">
+        Intermediate
+      </button>
+        <button type="button" 
+        name="expertProfi"
+        mdbBtn 
+        style="background-color:#3F729B"  
+        block="true" 
+        class="z-depth-2" 
+        value="Expert"
+        (click)="onClose('expert')">
+        Expert
+      </button>
+      </div>
+          
+      </form>
+      </mdb-card-body>
+      <!-- {{reasonToReject.value | json}} -->
+    </mdb-card>
+    <!--/Form with header-->
+  
+  

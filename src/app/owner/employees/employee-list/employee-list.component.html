@@ -1,0 +1,91 @@
+<div style="margin-top:50px">
+    <button mat-mini-fab style="color: darkslategrey;  margin-bottom: 5px" matTooltip="Add Employees" [routerLink]="['/owner/registerEmployee']" > <mat-icon> add </mat-icon>  </button>
+    <button mat-mini-fab style="background-color: darkslategrey;float: right; margin-left: 10px; margin-bottom: 10px" matTooltip="See Deleted Employees" [routerLink]="['/owner/deletedEmployees']" > <mat-icon> voice_over_off</mat-icon>  </button>  
+    <!--Form with header-->
+        
+        <!--Header-->
+        <div class="header pt-10 " style="background-color: lightblue">
+    
+          <div class="row d-flex justify-content-start">
+            <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Employee List</h3>
+          </div>
+    
+        </div>
+        
+        
+            
+    <p-dataView [value]="listOfEmployees" [paginator]="true" [rows]="3" >
+      <p-header>
+<!--          
+              <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
+                  (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}" style="margin-right: 5px"></p-dropdown> -->
+           
+    
+            <!-- <br>
+            <br> -->
+           
+              <!-- <input type="search" class="form-control" pInputText placeholder="Search by technology" (keyup)="dv.filter($event.target.value)"> -->
+          
+              
+          <br>
+    
+                  <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </p-header>
+      <p-footer>
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </p-footer>
+    
+      <ng-template let-employee pTemplate="listItem" style="margin-bottom: 20px;">
+          <div>
+            
+            <mat-card class="example-card" >
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title> {{employee.name }} </mat-card-title>
+                <mat-card-subtitle> <p> Designation: {{employee.designation }} </p> 
+                 <!-- Rating:   <ngb-rating [rate]="employee.rating" max="5"></ngb-rating>  -->
+                </mat-card-subtitle>
+              </mat-card-header>
+              <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+              <mat-card-content>
+               <div class="container col-6">
+                 
+                 <strong> EmailId:  </strong> {{employee.companyEmail}}
+               </div>
+                
+              </mat-card-content>
+              <mat-card-actions>
+                  <!-- <button mat-button   style="float:right; background-color: cornflowerblue; margin-top: -10px" (click)="employeeDetails(employee._id)">Details</button>              -->
+                <button mat-button  style="color: darkred; background-color: lightcoral; float: right; margin-top:-10px; margin-left:-1px" (click)="deleteEmployee(employee._id) " [hidden]="employee.cannotDelete"> <mat-icon>person_add_disabled</mat-icon>  Delete</button>
+                <button mat-button style="color: #023c66; background-color:lightblue; float: right; margin-top:-10px"  (click)="editEmployee(employee._id)">  <mat-icon>edit</mat-icon> Edit</button>
+              </mat-card-actions>
+            </mat-card> 
+          </div>
+          <!-- <div>
+           
+        </div> -->
+    
+      </ng-template>
+    
+      <ng-template let-employee pTemplate="gridItem">
+        <div style="padding:.5em" class="ui-g-12 ui-md-3">
+          <p-panel [header]="employee.firstName" [style]="{'text-align':'center'}">
+              <!-- <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"> -->
+              <div class="car-detail">
+                  <!-- <strong> TechnologiesKnown </strong>
+                  <div *ngFor="let t of employee.technologiesKnown ">  {{t}} </div> -->
+                 <strong>  Name: </strong>
+                 {{employee.name }}
+                <br>
+                <strong> Designation: </strong>
+                {{employee.designation }} 
+                </div>
+              <hr class="ui-widget-content" style="border-top:0">
+              <button mat-button style="color: #023c66; "  (click)="editEmployee(employee._id) ">  <mat-icon>edit</mat-icon> Edit</button>
+              <button mat-button  style="color: darkred" (click)="deleteEmployee(employee._id)"  [hidden]="employee.cannotDelete"> <mat-icon>person_add_disabled</mat-icon>  Delete</button>
+              <!-- <button mat-button  (click)="employeeDetails(employee._id)">Details</button> -->
+          </p-panel>
+      </div>
+      </ng-template>
+    </p-dataView>
+    </div>

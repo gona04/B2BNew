@@ -1,0 +1,40 @@
+<div class="container">
+<div class="jumbotron jumbotron-fluid"  style=" background-color: lightblue; margin-top: 50px; ">
+<div class="row">
+
+<div class="col-lg-6 col-sm-12 col-md-6">
+  <h5 style="font-weight: bold; margin-left: 10px"> STEPS THAT FOLLOW :</h5>
+    <div class="  d-flex justify-content-center col-sm-12" style="margin-left: 0px">
+    <p-organizationChart [value]="data" selectionMode="single" styleClass="company" >
+       
+      <ng-template let-node pTemplate="person">
+          <div class="node-header ui-corner-top">{{node.label}}</div>
+          <!-- <div class="node-content">
+              <img src="./src/app/{node.data.avatar}" width="32">
+              <div>{node.data.name}</div>
+          </div> -->
+      </ng-template>
+      <ng-template let-node pTemplate="department">
+        {{node.label}}
+      </ng-template>
+      
+      </p-organizationChart>
+    </div>
+</div>
+      <div class="col-lg-6 col-md-6 col-sm-12" style="float: top; font-weight: bold">
+          <!-- <div class="col-4"> -->
+            Authentic Exchange of Human Resource
+          <!-- </div> -->
+        </div>
+</div> 
+   <!-- <div class="col"></div> -->
+<!-- <div class="row justify-content-end" style="margin-top: 20px"> -->
+<!-- <div class="col" style=" float: top" >
+  As Admin varifies your company the employees added are genuinely good! It is an attempt to make an authentic exchange and use of human resource
+</div> -->
+
+  
+
+<!-- </div> -->
+</div>
+</div>

@@ -1,0 +1,64 @@
+
+
+ <div  id="foo">
+    <mdb-card >
+  
+        <!--Header-->
+        <div class="header pt-10 " style="background-color: lightblue">
+    
+          <div class="row d-flex justify-content-start">
+            <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Engineer Details</h3>
+          </div>
+    
+        </div>
+        <!--Header-->
+       
+        <mdb-card-body class="col-md-12"  >
+          <!-- <div class=" col-md-8  col-lg-6"> -->
+                
+             <div class="well profile">
+                  
+                  <div class="col-sm-12" >
+                      <div class="col-xs-12 ">
+                          <h2 > {{engineer.firstName   }} {{engineer.lastName}} </h2>
+                          <p><strong>About: </strong>  {{designation}}  </p>
+                          <p> <strong>Contact Details:</strong> <br> {{engineer.phoneNumber}} <br> {{engineer.email}} <br> </p>
+                          <p> <strong> Budget: </strong> {{engineer.budget}}  </p>
+                          <br>
+                          <strong>Skills: </strong>
+                          <div  *ngFor="let t of technologies">
+                              <div  class="tags col"> <strong> {{t.name}} </strong>  {{t.proficiency}}  </div> 
+                          </div>
+                          <br>
+                          <strong>Jobs: </strong>
+                          <div  *ngFor="let j of jobs"> 
+                              <br>
+                            <div  class="tags col-12"> <strong> {{j.companyName}} </strong>  {{j.desgnation}}  </div>
+                            <div class="tags col-12"> <strong> Time Period </strong> {{j.startedOn | date: 'mediumDate'}} | {{j.till }} </div> 
+                            <div class="tags col-12"> <strong> Responsibilites </strong> {{j.currentResponsibilites}} </div>
+                            <div class="tags col-12" *ngIf="j.projectLinks.length > 0  || j.otherWorkLinks.length > 0"> <strong> Work Links </strong> {{j.projectLinks}} <br> {{j.otherWorkLinks}} </div>
+                            <div class="tags col-12"> <strong> USBS </strong> {{j.otherUSB}} </div>
+                        </div>
+                      </div>             
+                      <!-- <div class="col-xs-12 col-sm-4 text-center"> -->
+                          <figure>
+                              <!-- <img src="http://www.localcrimenews.com/wp-content/uploads/2013/07/default-user-icon-profile.png" alt="" class="img-circle img-responsive"> -->
+                              <div >
+                                <label > Overall rating</label>
+                                <ngb-rating [(rate)]="engineer.rating" max="5"></ngb-rating>
+                              </div>
+                          </figure>
+                      <!-- </div> -->
+                    </div>
+                             
+                  <div class="col-xs-12 divider text-center">
+                      <button mat-raised-button color="primary" (click)="downloadPdf()"> Download pdf </button>
+                  </div>
+             </div>                 
+          <!-- </div> -->
+      
+    
+      </mdb-card-body>
+  
+      </mdb-card>
+    </div> 

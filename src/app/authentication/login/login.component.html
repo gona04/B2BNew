@@ -1,0 +1,69 @@
+<section style="margin-top: 50px">
+
+  <!--Form with header-->
+  <mdb-card>
+
+    <!--Header-->
+    <div class="header pt-3" style="background-color: lightblue">
+
+      <div class="row d-flex justify-content-start">
+        <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Login Form</h3>
+      </div>
+
+    </div>
+    <!--Header-->
+
+    <mdb-card-body class="mx-4 mt-4">
+
+      <!--Body-->
+      <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+
+        <mat-form-field class="col">
+          <input type="text"
+          matInput
+          class="email-full-width"
+          name="companyEmail"
+          pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+          [ngModel]="owner?.companyEmail" 
+		      (ngModelChange)="owner.companyEmail = $event" #companyEmail="ngModel" [placeholder]=placeHolder>
+          <mat-error *ngIf="companyEmail?.touched && companyEmail.errors?.pattern" class="help-block font-weight-bold" style=" font-size: 12px; color: maroon">
+            Please enter a valid email id 
+              <!-- have to work on that  -->
+            <!-- (only lowercase allowed) -->
+        </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="col">
+          <input type="password"
+         matInput
+          name="password"
+          [ngModel]="owner?.password" 
+		      (ngModelChange)="owner.password = $event" #password="ngModel" placeholder="password">
+          <mat-hint class="font-small grey-text d-flex justify-content-end">Forgot
+            <a href="#" class="dark-grey-text font-weight-bold ml-1"> Password?</a>
+          </mat-hint>
+        </mat-form-field>
+        <br>
+        <br>
+        <div class="col" *ngIf="this.cUrl !== 'admin'">
+          <mat-form-field>
+            <mat-select placeholder="ROLE" required="true" name="role" [ngModel]="role" (ngModelChange)="role = $event">
+              <mat-option value="CEO" >CEO</mat-option>
+              <mat-option value="EMPLOYEE">Employee</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+       
+      <div class="text-center mb-4" style="margin-top: 20px">
+        <input type="submit" mdbBtn color="danger" block="true" class="z-depth-2" value="Log in">
+      </div>
+      <p class="font-small grey-text d-flex justify-content-center">Don't have an account?
+        <a [routerLink]="['/signup']" class="dark-grey-text font-weight-bold ml-1"> Sign up</a>
+      </p>
+    </form>
+    </mdb-card-body>
+    <!-- {{loginForm.value | json}} -->
+  </mdb-card>
+  <!--/Form with header-->
+
+</section>

@@ -1,0 +1,80 @@
+
+body .ui-organizationchart .ui-organizationchart-node-content {
+    border: 1px solid #c8c8c8;
+    background-color: transparent;
+    /* background-color: #ffffff; */
+    color: #333333;
+    padding: 0.571em 1em;
+}
+.company.ui-organizationchart .ui-organizationchart-node-content.ui-person {
+    padding: 0;
+    border: 0 none;
+    background-color: transparent
+}
+
+.node-header,.node-content {
+    padding: 0;
+}
+
+.node-header {
+    background-color:transparent;
+    color: black;
+}
+
+.node-content {
+    text-align: center;
+    border: 1px solid #495ebb;
+}
+
+.node-content img {
+    border-radius: 50%;
+}
+
+.department-cfo {
+    background-color: #7247bc;
+    color: #ffffff;
+}
+
+.department-coo {
+    background-color: #a534b6;
+    color: #ffffff;
+}
+
+.department-cto {
+    background-color: #e9286f;
+    color: #ffffff;
+}
+
+.ui-person .ui-node-toggler {
+    color: #495ebb !important;
+}
+
+.department-cto .ui-node-toggler {
+    color: #8a0a39 !important;
+}
+
+// encapsulation: ViewEncapsulation.None
+// body .ui-organizationchart .ui-organizationchart-node-content {
+//     border: 1px solid #c8c8c8;
+//     background-color: transparent;
+//     // color: #333333;
+//     padding: 0;
+// }
+// .ui-organizationchart .ui-organizationchart-node-content {
+//      padding: 0; 
+//     /* display: inline-block; */
+//     position: relative;
+// }
+
+// ng-tns-c6-3 ui-organizationchart-node-content ui-widget-content ui-corner-all ui-organizationchart-selectable-node {
+//     background-color: transparent
+// }
+
+.jumbotron {
+    /* padding-top: 1rem; */
+    /* padding-bottom: 1rem; */
+    padding: 1rem;
+    margin-bottom: 2rem;
+    // background-color: #e9ecef;
+    // border-radius: 0.3rem;
+}

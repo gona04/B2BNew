@@ -1,0 +1,71 @@
+<div style="margin-top:50px">
+    <!-- <button mat-mini-fab style="color: darkslategrey;  margin-bottom: 5px" matTooltip="Add Owners" [routerLink]="['/owner/registerOwner']" > <mat-icon> add </mat-icon>  </button>
+    <button mat-mini-fab style="background-color: darkslategrey;float: right; margin-left: 10px; margin-bottom: 10px" matTooltip="See Deleted Owners" [routerLink]="['/owner/deletedOwners']" > <mat-icon> voice_over_off</mat-icon>  </button>   -->
+    <!--Form with header-->
+        
+        <!--Header-->
+        <div class="header pt-10 " style="background-color: lightblue">
+    
+          <div class="row d-flex justify-content-start">
+            <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Owner List</h3>
+          </div>
+    
+        </div>
+        
+        
+            
+    <p-dataView [value]="listOfOwners" [paginator]="true" [rows]="3" >
+     <!-- add it in data-view [sortField]="sortField" [sortOrder]="sortOrder" #dv filterBy="technologiesKnown" -->
+      <p-header>
+         
+             <!-- sort and search where here -->
+      </p-header>
+      <p-footer>
+
+      </p-footer>
+    
+      <ng-template let-owner pTemplate="listItem">
+          <div>
+            
+            <mat-card class="example-card"  style="margin-bottom: 20px;">
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title> {{owner.companyName }} </mat-card-title>
+                <mat-card-subtitle> <p> <strong style="color:darkcyan"> CEO Name: </strong> <span style="font-weight: bold; color:grey"> {{owner.ceofullName }} </span> </p> </mat-card-subtitle>
+                
+              </mat-card-header>
+           
+              <mat-card-content>
+               <div class="container col-6">
+               
+                  <strong style="font-weight: bold"> Contact Details:  </strong> 
+                  <hr>
+                  <div>
+                    Company Email: {{owner.companyEmail}}
+                    <br>
+                    CEO's Email address: {{owner.personalEmail}}
+                    <br>
+                    Phone Number: {{owner.phoneNumber}}
+                  </div>
+                </div>
+                
+              </mat-card-content>
+              <mat-card-actions>
+                  <div *ngIf="!owner.isDeleted">
+                      <div style="color: darkgreen; font-weight: bold; float:right" *ngIf="owner.isVarified === 'VARIFIED'"><strong> Varified </strong> </div>
+                      <div style="color: maroon; font-weight: bold; float:right" *ngIf="owner.isVarified === 'REJECTED'"><strong>Rejected</strong></div>
+                      <div *ngIf="reasonToreject"> {{owner.reasonToreject}} </div>
+                      <button mat-raised-button style="color: darkgreen; float:right; margin-bottom: 10px; background-color: lightblue " [hidden]="owner.isVarified !== 'PENDING'" (click)="varifyOwner(owner._id)"> <mat-icon style="font-weight: bold">done</mat-icon> <small style="font-weight: bold">varify</small> </button>
+                      <button mat-raised-button style="color: maroon; float:right; margin-bottom: 10px;  background-color: lightblue " [hidden]="owner.isVarified !== 'PENDING'" (click)="rejectOwner(owner._id)"> <mat-icon style="font-weight: bold"> close </mat-icon> <small style="font-weight: bold"> reject</small> </button>
+                      <br>
+                    </div>
+              </mat-card-actions>
+            </mat-card> 
+          </div>
+     
+    
+      </ng-template>
+    
+
+    </p-dataView>
+    </div>

@@ -1,0 +1,248 @@
+<!-- <div class="jumbotron"  style="background-color: gray"> -->
+  <!-- Default form register -->
+  <!-- <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=loadCaptcha" async defer></script> -->
+  <section style="margin-top: 50px">
+    <mdb-card>
+
+    
+      <div class="header pt-3 " style="background-color: lightblue">
+        <div class="row d-flex justify-content-start">
+          <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Signup Form</h3>
+        </div>
+
+      </div>
+
+    <mdb-card-body class="mx-4 mt-4">
+        <form 
+            class="text-center " 
+            #forms="ngForm" (ngSubmit)="onSubmit(forms)">
+
+  <!-- <p class="h4 mb-4">Signup Form</p> -->
+
+                <div class="form-row from-group mb-4">
+                            <mat-form-field class="col">
+      <!-- First name -->
+                                <input matInput type="text" 
+                                id="defaultRegisterFormCEOfullName"
+                                name="ceoName" 
+                                [ngModel]="owner?.ceofullName" 
+                                (ngModelChange)="owner.ceofullName = $event" 
+                                #ceoFullName="ngModel" 		  
+                                placeholder="CEO Full Name"
+                                required>
+
+                                <mat-error 
+                                *ngIf="ceoFullName.invalid 
+                                && (ceoFullName.dirty || ceoFullName.touched)"
+                                class=" font-weight-bold" 
+                                style=" font-size: 12px; color: maroon">
+                                    CEO's name cannot be empty
+                                </mat-error>
+                              </mat-form-field>
+
+                        <mat-form-field class="col" [class.has-error]="cn.touched && cn.invalid">
+      <!-- Last name -->
+                            <input type="text" 
+                                    id="defaultRegisterFormLastName" 
+                                    name="companyName"
+                                    [ngModel]="owner?.companyName" 
+                                    (ngModelChange)="owner.companyName = $event" 
+                                    #cn="ngModel"
+                                    required
+                                    matInput
+                                    placeholder="Company Name">
+                              <mat-error *ngIf="cn.invalid && (cn.touched || cn.dirty)"
+                                          class="help-block font-weight-bold" style=" font-size: 12px; color: maroon">
+                                            Company name cannot be empty
+                              </mat-error>
+                          </mat-form-field>
+                  </div>
+                  
+  <!-- Company E-mail -->
+      <div class="form-row from-group mb-4">
+                          <mat-form-field class="col">
+  
+                              <input type="email" class="email-full-width"
+                                      id="defaultRegisterFormCompanyEmail"
+                                      name="companyEmail" 
+                                      [ngModel]="owner?.companyEmail" 
+                                      (ngModelChange)="owner.companyEmail = $event" 
+                                      #cEmail="ngModel"	  
+                                      matInput
+                                      placeholder="Company's E-mail"
+                                      required 
+                                      pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+
+                                      <mat-error *ngIf="cEmail.touched && cEmail.errors?.required" 
+                                                  class="help-block font-weight-bold" 
+                                                  style=" font-size: 12px; color: maroon">
+                                              
+                                                  Company email cannot be empty
+                                                
+                                      </mat-error>
+  
+                                      <mat-error *ngIf="cEmail.touched && cEmail.errors?.pattern" 
+                                                  class="help-block font-weight-bold" 
+                                                  style=" font-size: 12px; color: maroon">
+        
+                                                  Please enter a valid email id 
+          
+                                                  <!-- have to work on that  -->
+      
+                                                  <!-- (only lowercase allowed) -->
+                                      </mat-error>
+                                </mat-form-field>
+            </div>
+                                <!-- company-email-ends -->
+            <div class="form-row from-group mb-4">
+                                <mat-form-field class="col">
+                                  <!-- Personal E-mail -->
+                                  <input type="email" 
+                                  class="email-full-width"
+                                  id="defaultRegisterFormPersonalEmail"
+                                  name="personalEmail" 
+                                  [ngModel]="owner?.personalEmail" 
+                                  (ngModelChange)="owner.personalEmail = $event" 
+                                  #pEmail="ngModel"	  
+                                  matInput
+                                  placeholder="Personal E-mail"
+                                  required  
+                                  validateEqualEmail="companyEmail" 
+                                  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                  <mat-error  *ngIf="pEmail.touched && pEmail.errors?.required" 
+                                              class="help-block font-weight-bold" 
+                                              style=" font-size: 12px; color: maroon">
+                                    Personal email cannot be empty
+                                  </mat-error> 
+                                  <mat-error *ngIf="pEmail.touched && pEmail.errors?.Equal" class="help-block font-weight-bold" style=" font-size: 12px; color: maroon">   
+                                    Personal email id and comapny email id cannot be same
+                                  </mat-error>
+  
+                                  <mat-error *ngIf="pEmail.touched && pEmail.errors?.pattern" class="help-block font-weight-bold" style=" font-size: 12px; color: maroon">
+                                    Please enter a valid email Id 
+                                    <!-- (only lowercase allowed) -->
+                                  </mat-error>
+                                  <!-- {{pEmail.errors?.Equal | json}} -->
+                                  <!-- {{pEmail.errors |json}} -->
+                          </mat-form-field>
+              </div>
+
+              <div class="form-row from-group mb-4">
+              <!-- Password -->
+  
+                          <mat-form-field class="col">
+  
+                            <input 
+                            type="password" 
+                            id="defaultRegisterFormPassword1" 
+                            class="email-full-width" 
+                            placeholder="Password" 
+                            aria-describedby="defaultRegisterFormPasswordHelpBlock"
+                            name="password1"
+                            matInput
+                            [ngModel]="password1"
+                            (ngModelChange)="password1 = $event"
+                            #p1="ngModel"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            required>
+
+                          </mat-form-field>
+
+                          <!-- p1 ends -->
+              </div>
+
+
+
+              <div class="form-row from-group mb-4">
+                          <mat-form-field class="col">
+   
+                            <input     
+                            type="password" 
+                            id="defaultRegisterFormPassword2"     
+                            class="email-full-width"     
+                            matInput    
+                            placeholder="Confirm-Password"     
+                            aria-describedby="defaultRegisterFormPasswordHelpBlock"    
+                            name="password2"    
+                            [ngModel]="password2"    
+                            (ngModelChange)="password2 = $event"    
+                            #p2="ngModel"    
+                            required
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"    
+                            validateEqual="password1">
+                            
+                            <mat-hint id="defaultRegisterFormPasswordHelpBlock" 
+                                      class="form-text text-muted mb-4 font-weight-bold" 
+                                      style="color:darkolivegreen">
+                              At least one number and one uppercase and lowercase letter, and at least 8 or more characters
+                            </mat-hint>
+  
+                            <mat-error *ngIf="p2.touched && p2.errors?.notEqual" 
+                                        class="help-block font-weight-bold" 
+                                        style=" font-size: 12px; color: maroon">
+                              Both passwords do not match
+                            </mat-error>
+
+                            <mat-error 
+                              *ngIf="p2.touched && p2.errors?.pattern" 
+                              class="help-block font-weight-bold" 
+                              style=" font-size: 12px; color: maroon">
+                              Password must have at least one number and one uppercase and lowercase letter, and at least 8 or more characters
+                            </mat-error>
+
+                          </mat-form-field> 
+                  </div>
+
+                <div class="form-row from-group mb-4">
+                          <mat-form-field class="col" style="margin-top: 15px">
+  
+                            <!-- Phone number -->
+                            <input type="text" 
+                            id="defaultRegisterPhonePassword" 
+                            class="email-full-width" 
+                            matInput
+                            placeholder="Phone number" 
+                            aria-describedby="defaultRegisterFormPhoneHelpBlock"
+                            [ngModel]="owner?.phoneNumber"
+                            (ngModelChange)="owner.phoneNumber = $event"
+                            name="ph"
+                            #ph="ngModel"
+                            required
+                            pattern="^\d{3}-\d{4}-\d{4}$">
+                            <mat-hint style="color:darkolivegreen" class="font-weight-bold text-muted">
+                              Phone Number (format: xxx-xxxx-xxxx)
+                              <br>
+                            </mat-hint>
+
+                            <mat-error *ngIf="ph.errors && ph.errors.pattern" class="help-block font-weight-bold" style=" font-size: 12px; color: maroon">
+                              Please enter a valid phone number
+                            </mat-error>
+
+                          </mat-form-field>
+                            
+                          <!-- add captcha -->
+                          <!-- <p-toast [style]="{marginTop: '80px'}"></p-toast> -->
+
+                          
+                          </div>
+                          <div>
+                              <!-- <p-captcha class="g-recaptcha" siteKey="6LdoAX4UAAAAAPPFzVoLz6j8bNs-LW0p34RKxwTT" (onResponse)="showResponse($event)"></p-captcha> -->
+                              <!-- <div class="g-recaptcha" data-sitekey="6LdoAX4UAAAAAPPFzVoLz6j8bNs-LW0p34RKxwTT"></div> -->
+                          </div>
+                          <!-- Sign up button -->
+                          <button mat-raised-button  
+                          block="true" 
+                          class="my-4 btn btn-danger btn-block" 
+                          type="submit" 
+                          style="margin-left:0% ; width: 100%">                   
+                          Sign in</button>
+
+
+                        </form>
+
+                      </mdb-card-body>
+
+                    </mdb-card>
+
+                  </section>
+               
