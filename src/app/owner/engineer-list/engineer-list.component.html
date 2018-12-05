@@ -1,6 +1,6 @@
 <div style="margin-top:50px">
-    <button mat-mini-fab style="color: darkslategrey;  margin-bottom: 5px" matTooltip="Add Engineers" [routerLink]="['/owner/registerEngineer']" > <mat-icon> add </mat-icon>  </button>
-    <button mat-mini-fab style="background-color: darkslategrey;float: right; margin-left: 10px; margin-bottom: 10px" matTooltip="See Deleted Engineers" [routerLink]="['/owner/deletedEngineers']" > <mat-icon> voice_over_off</mat-icon>  </button>  
+    <button mat-mini-fab style="color: darkslategrey;  margin-bottom: 5px" matTooltip="Add Engineers" [routerLink]="['/owner/registerEngineer']"  [hidden]="currentURL === 'list'" > <mat-icon> add </mat-icon>  </button>
+    <button mat-mini-fab style="background-color: darkslategrey;float: right; margin-left: 10px; margin-bottom: 10px" matTooltip="See Deleted Engineers" [routerLink]="['/owner/deletedEngineers']"  [hidden]="currentURL === 'list'" > <mat-icon> voice_over_off</mat-icon>  </button>  
     <!--Form with header-->
         
         <!--Header-->
@@ -56,12 +56,22 @@
                </div>
                 
               </mat-card-content>
+
+              <div *ngIf="engineer.hiredBy" style="color: red;font-weight: bold ">
+                Is working on a project
+              </div>
               <mat-card-actions>
+                  <!-- {{engineer.hiredBy |json}} -->
                   <button mat-button   style="float:right; background-color: cornflowerblue; margin-top: -10px" (click)="engineerDetails(engineer._id)">Details</button>             
-                  <button mat-button (click)="engineerHire(engineer._id)"  [hidden]="engineer.hiredBy" style="float:right; color: rgb(18, 73, 18); background-color: rgb(193, 240, 193); margin-top: -10px" > Hier </button>
-                  <button mat-button *ngIf="engineer.showUnhired" style="float:right; background-color: rgb(114, 128, 153); margin-top: -10px" (click)="unhireEngineer(engineer._id)" > Unhire </button>
-                  <button mat-button  style="color: darkred; background-color: lightcoral; float: right; margin-top:-10px; margin-left:-1px" (click)="deleteEngineer(engineer._id) " [hidden]="engineer.hiredBy"> <mat-icon>person_add_disabled</mat-icon>  Delete</button>
-                <button mat-button style="color: #023c66; background-color:lightblue; float: right; margin-top:-10px"  (click)="editEngineer(engineer._id)">  <mat-icon>edit</mat-icon> Edit</button>
+                  <button mat-button 
+                  (click)="engineerHire(engineer._id)" 
+                  style="float:right; color: rgb(18, 73, 18); background-color: rgb(193, 240, 193); margin-top: -10px" 
+                  [hidden]="engineer.hiredBy ||currentURL === 'splist'" > 
+                  Hier 
+                </button>
+                  <button mat-button  style="float:right; background-color: rgb(114, 128, 153); margin-top: -10px" (click)="unhireEngineer(engineer._id)" [hidden]="(!engineer.hiredBy) || (currentURL === 'splist')"> Unhire </button>
+                  <button mat-button  style="color: darkred; background-color: lightcoral; float: right; margin-top:-10px; margin-left:-1px" (click)="deleteEngineer(engineer._id) "   [hidden]="currentURL === 'list'" > <mat-icon>person_add_disabled</mat-icon>  Delete</button>
+                <button mat-button style="color: #023c66; background-color:lightblue; float: right; margin-top:-10px"  (click)="editEngineer(engineer._id)"  [hidden]="currentURL === 'list'">  <mat-icon>edit</mat-icon> Edit</button>
              
               </mat-card-actions>
             </mat-card> 
@@ -82,10 +92,10 @@
                  <strong>  Expirence: </strong>
                  {{engineer.experience}} yrs</div>
               <hr class="ui-widget-content" style="border-top:0">
-              <button mat-button (click)="engineerHire(engineer._id)"  [hidden]="engineer.hiredBy" style="float:right; color: rgb(18, 73, 18); background-color: rgb(193, 240, 193); margin-top: -10px" > Hier </button>
-              <button mat-button *ngIf="engineer.showUnhired" style="float:right; background-color: rgb(114, 128, 153); margin-top: -10px" (click)="unhireEngineer(engineer._id)" > Unhire </button>
-              <button mat-button style="color: #023c66; "  (click)="editEngineer(engineer._id) ">  <mat-icon>edit</mat-icon> Edit</button>
-              <button mat-button  style="color: darkred" (click)="deleteEngineer(engineer._id)" [hidden]="engineer.hiredBy"> <mat-icon>person_add_disabled</mat-icon>  Delete</button>
+              <button mat-button (click)="engineerHire(engineer._id)" style="float:right; color: rgb(18, 73, 18); background-color: rgb(193, 240, 193); margin-top: -10px" [hidden]="engineer.hiredBy === undefined || currentURL === 'splist'" > Hier </button>
+              <button mat-button  style="float:right; background-color: rgb(114, 128, 153); margin-top: -10px" (click)="unhireEngineer(engineer._id)" [hidden]="engineer.hiredBy  || currentURL === 'splist'" > Unhire </button>
+              <button mat-button style="color: #023c66; "  (click)="editEngineer(engineer._id) "  [hidden]="currentURL === 'list'" >  <mat-icon>edit</mat-icon> Edit</button>
+              <button mat-button  style="color: darkred" (click)="deleteEngineer(engineer._id)" [hidden]=" currentURL === 'list'"  > <mat-icon>person_add_disabled</mat-icon>  Delete</button>
               <button mat-button  (click)="engineerDetails(engineer._id)">Details</button>
           </p-panel>
       </div>

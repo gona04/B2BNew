@@ -8,6 +8,9 @@ import { EngineerService } from 'src/app/shared/engineer/engineer.service';
 import { TechnologyService } from 'src/app/shared/engineer/technology/technology.service';
 import { EngineerDetailsComponent } from '../engineer-details/engineer-details.component';
 import { AddEngineersComponent } from '../add-engineer/add-engineers.component';
+import { Router } from '@angular/router';
+import { EmployeeService } from 'src/app/shared/owner/employee/employee.service';
+import { Employee } from 'src/app/shared/owner/employee/employee.class';
 
 
 @Component({
@@ -29,14 +32,30 @@ export class EngineerListComponent implements OnInit {
   listOfEngineers: Engineer[];
   technoList: Technology[] = [];
 
-  constructor(private _engineerService: EngineerService, private dialog: MatDialog, private _techService: TechnologyService, private _ownerService: OwnerService) { }
+  //FOR KNOWING THE PAGE 
+  currentURL: string;
+
+  //FOR GIVING EVERY ROLE DIFFERENT COMPONENETS
+  role: string;
+
+  //TO GIVE THE EMPLOYEE OF THE COMPANY AND THE OWNER THE SAME RESULTS 
+  specificEmp = new Employee();
+  constructor(
+              private _engineerService: EngineerService, 
+              private dialog: MatDialog, 
+              private _techService: TechnologyService, 
+              private _employeeService: EmployeeService,
+              private router: Router) { }
 
   ngOnInit() {
-    
+    this.componenetsToShow();
     this.sortOptions = [
       {label: 'Freashers', value: 'experience'},
       {label: 'Experienced', value: '!experience'}
   ]; 
+
+    this.role = localStorage.getItem("role");
+    debugger
     this.getListofEngineers();
    
   }
@@ -78,10 +97,7 @@ onSortChange(event) {
       data: userDetails
 })
 
-//   const e = new Engineer();
-//   this._engineerService.editEngineer(id, e).subscribe(result => {
 
-// })
   }
 
   //FOR TETMPORARILY DELETING AN ENGINEER
@@ -116,5 +132,65 @@ onSortChange(event) {
   }
 
 
-  
+  componenetsToShow() {
+    let cURL = this.router.url;
+    debugger
+    this.currentURL = cURL.toString().split('/')[2];
+    debugger
+  }
+
+
+  //HIRE AND UNHIRE LOGIC 
+
+  engineerHire(id: string) {
+    this._engineerService.updateEngineers(id, this.role).subscribe(result => {
+      this.getListofEngineers();
+    })
+  }
+
+  unhireButton() {
+   
+    const id = localStorage.getItem("ID");
+    
+    this.listOfEngineers.forEach(eng => 
+    {
+      if(eng.hiredByRole === 'EMPLOYEE') {
+        
+          this._employeeService.getAllEmployees().subscribe((result: any) => {
+            let employees = result.employees;
+            this.specificEmp =  employees.forEach(e => {
+              if(e._id === eng.hiredBy) {
+                eng.showUnhired = true;
+              }
+            })
+            
+          })
+      }
+
+      if(eng.hiredByRole === 'OWNER') {
+        
+        this._employeeService.getEmployeeById(eng.hiredBy).subscribe((result:any) => {
+          const newId = result.employee[0]._id;
+          if(id === newId) {
+            eng.showUnhired = true;
+          }
+        })
+      }
+      if(eng.hiredBy === id) {
+        eng.showUnhired = true;
+      }
+    }
+      )
+  }
+
+  unhireEngineer(id: string) {
+    let spEng: Engineer = this.listOfEngineers.find(eng => eng._id === id);
+    spEng.hiredBy = null;
+    spEng.hiredByRole = null;
+    
+    this._engineerService.unhire(spEng._id, spEng).subscribe(result => {
+
+      this.getListofEngineers();
+    })
+  }
 }

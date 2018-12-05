@@ -10,7 +10,7 @@ import { DeletedEmployeesListComponent } from "./employees/deleted-employees-lis
 
 const routes: Routes = [
     {path: '', pathMatch:'full' ,redirectTo: 'list'},
-    {path: 'list', component: EngineerListGeneralComponent},
+    {path: 'list', component: EngineerListComponent},
     {path: 'splist', component: EngineerListComponent},
     {path: 'registerEngineer', component: AddEngineersComponent},
     {path: 'deletedEngineers', component: DeletedEngineersComponent},
