@@ -46,7 +46,7 @@ export class OwnerListComponent implements OnInit {
   }
 
   varifyOwner(id: string) {
-    alert(id + ' from varify');
+
     const owner = this.getOwnerById(id);
     owner.isVarified = 'VARIFIED';
     owner.isSeen = true;
@@ -62,7 +62,7 @@ export class OwnerListComponent implements OnInit {
   }
 
   rejectOwner(id: string) {
-    // alert(id + ' from reject');
+
     if(confirm('Are you sure you want to reject this company? ')) {
       const d = this.dialog.open(ResonToRejectComponent, {
        panelClass: 'custom-dialog-container'

@@ -102,7 +102,7 @@ onSortChange(event) {
 
   //FOR TETMPORARILY DELETING AN ENGINEER
   deleteEngineer(id: string) {
-    alert('id ' + id);
+    // alert('id ' + id);
     if(confirm('Are you sure you want to delete this engineer ? ')){
       this._engineerService.deleteEngineer(id).subscribe(result => {
         this.getListofEngineers();

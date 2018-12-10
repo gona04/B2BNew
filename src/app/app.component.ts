@@ -42,6 +42,7 @@ socket.on('newCEO', data => {
   
   if(this.role === 'ADMIN') {
     setTimeout(() => {
+      debugger
       this.snackBar.open('Company', this.companyAdded.companyName, {
         duration: 20000,
       })

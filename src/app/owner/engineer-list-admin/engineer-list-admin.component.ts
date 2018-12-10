@@ -86,7 +86,7 @@ this._engineerService.editEngineer(id, e).subscribe(result => {
   }
 
   deleteEngineer(id: string) {
-    alert('id ' + id);
+    // alert('id ' + id);
     if(confirm('Are you sure you want to delete this engineer ? ')){
       this._engineerService.deleteEngineer(id).subscribe(result => {
         

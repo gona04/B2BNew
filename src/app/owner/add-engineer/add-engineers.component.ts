@@ -138,7 +138,7 @@ export class AddEngineersComponent implements OnInit {
    //DELETE TECHNOLOGY
    deleteTechnology(_id: string) {
      //connect to backend of delete
-     alert('In DELETE');
+    //  alert('In DELETE');
      this._technologyService.deleteTechnology(_id).subscribe((result: any) => {
        alert('Technology deleted successfully');
        this.getAllTechnologies();
