@@ -70,7 +70,7 @@
                   Hier 
                 </button>
                   <button mat-button  style="float:right; background-color: rgb(114, 128, 153); margin-top: -10px" (click)="unhireEngineer(engineer._id)" [hidden]="(!engineer.hiredBy) || (currentURL === 'splist')"> Unhire </button>
-                  <button mat-button  style="color: darkred; background-color: lightcoral; float: right; margin-top:-10px; margin-left:-1px" (click)="deleteEngineer(engineer._id) "   [hidden]="currentURL === 'list'" > <mat-icon>person_add_disabled</mat-icon>  Delete</button>
+                  <button mat-button  style="color: darkred; background-color: lightcoral; float: right; margin-top:-10px; margin-left:-1px" (click)="deleteEngineer(engineer._id) "   [hidden]="currentURL === 'list' || engineer.hiredBy " > <mat-icon>person_add_disabled</mat-icon>  Delete</button>
                 <button mat-button style="color: #023c66; background-color:lightblue; float: right; margin-top:-10px"  (click)="editEngineer(engineer._id)"  [hidden]="currentURL === 'list'">  <mat-icon>edit</mat-icon> Edit</button>
              
               </mat-card-actions>
@@ -95,7 +95,7 @@
               <button mat-button (click)="engineerHire(engineer._id)" style="float:right; color: rgb(18, 73, 18); background-color: rgb(193, 240, 193); margin-top: -10px" [hidden]="engineer.hiredBy === undefined || currentURL === 'splist'" > Hier </button>
               <button mat-button  style="float:right; background-color: rgb(114, 128, 153); margin-top: -10px" (click)="unhireEngineer(engineer._id)" [hidden]="engineer.hiredBy  || currentURL === 'splist'" > Unhire </button>
               <button mat-button style="color: #023c66; "  (click)="editEngineer(engineer._id) "  [hidden]="currentURL === 'list'" >  <mat-icon>edit</mat-icon> Edit</button>
-              <button mat-button  style="color: darkred" (click)="deleteEngineer(engineer._id)" [hidden]=" currentURL === 'list'"  > <mat-icon>person_add_disabled</mat-icon>  Delete</button>
+              <button mat-button  style="color: darkred" (click)="deleteEngineer(engineer._id)" [hidden]=" currentURL === 'list' || engineer.hiredBy "  > <mat-icon>person_add_disabled</mat-icon>  Delete</button>
               <button mat-button  (click)="engineerDetails(engineer._id)">Details</button>
           </p-panel>
       </div>
